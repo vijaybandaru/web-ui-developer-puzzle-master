@@ -1,43 +1,56 @@
 import { createAction, props } from '@ngrx/store';
 import { Book, ReadingListItem } from '@tmo/shared/models';
 
+export enum ReadingListActionTypes {
+  READING_LIST_INIT = "[Reading List] Initialize",
+  LOAD_LIST_SUCCESS = "[Reading List API] Load list success",
+  LOAD_LIST_FAIL = "[Reading List API] Load list error",
+  ADD_TO_LIST = "[Books Search Results] Add to list",
+  ADD_TO_LIST_SUCCESS = "[Reading List API] Confirmed add to list",
+  ADD_TO_LIST_FAIL = "[Reading List API] Failed add to list",
+  REMOVE_FROM_LIST = "[Books Search Results] Remove from list",
+  REMOVE_FROM_LIST_SUCCESS = "[Reading List API] Confirmed remove from list",
+  REMOVE_FROM_LIST_FAIL = "[Reading List API] Failed remove from list",
+}
+
 export const init = createAction('[Reading List] Initialize');
 
 export const loadReadingListSuccess = createAction(
-  '[Reading List API] Load list success',
+  ReadingListActionTypes.LOAD_LIST_SUCCESS,
   props<{ list: ReadingListItem[] }>()
 );
+
 export const loadReadingListError = createAction(
-  '[Reading List API] Load list error',
+  ReadingListActionTypes.LOAD_LIST_FAIL,
   props<{ error: string }>()
 );
 
 export const addToReadingList = createAction(
-  '[Books Search Results] Add to list',
+  ReadingListActionTypes.ADD_TO_LIST,
   props<{ book: Book }>()
 );
 
 export const failedAddToReadingList = createAction(
-  '[Reading List API] Failed add to list',
+  ReadingListActionTypes.ADD_TO_LIST_FAIL,
   props<{ book: Book }>()
 );
 
 export const confirmedAddToReadingList = createAction(
-  '[Reading List API] Confirmed add to list',
+  ReadingListActionTypes.ADD_TO_LIST_SUCCESS,
   props<{ book: Book }>()
 );
 
 export const removeFromReadingList = createAction(
-  '[Books Search Results] Remove from list',
+  ReadingListActionTypes.REMOVE_FROM_LIST,
   props<{ item: ReadingListItem }>()
 );
 
 export const failedRemoveFromReadingList = createAction(
-  '[Reading List API] Failed remove from list',
+  ReadingListActionTypes.REMOVE_FROM_LIST_FAIL,
   props<{ item: ReadingListItem }>()
 );
 
 export const confirmedRemoveFromReadingList = createAction(
-  '[Reading List API] Confirmed remove from list',
+  ReadingListActionTypes.REMOVE_FROM_LIST_SUCCESS,
   props<{ item: ReadingListItem }>()
 );
