@@ -11,4 +11,14 @@ describe('When: I use the reading list feature', () => {
       'My Reading List'
     );
   });
+
+  it('Then: Undo action on my reading list', () => {
+    // cy.get('input[type="search"]').type('javascript');
+    // cy.get('form').submit();
+    // cy.get('[data-testing="want-to-read"]').click();
+
+   
+  });
+
+
 });

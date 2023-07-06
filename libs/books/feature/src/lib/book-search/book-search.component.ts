@@ -48,7 +48,7 @@ export class BookSearchComponent implements OnInit {
   }
 
   addBookToReadingList(book: Book) {
-    this.store.dispatch(addToReadingList({ book }));
+    this.store.dispatch(addToReadingList({ book, hideSnackbar: false }));
   }
 
   searchExample() {
