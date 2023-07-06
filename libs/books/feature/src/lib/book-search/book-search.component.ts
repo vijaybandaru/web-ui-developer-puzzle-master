@@ -9,6 +9,7 @@ import {
 } from '@tmo/books/data-access';
 import { FormBuilder } from '@angular/forms';
 import { Book } from '@tmo/shared/models';
+import { FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'tmo-book-search',
@@ -18,9 +19,7 @@ import { Book } from '@tmo/shared/models';
 export class BookSearchComponent implements OnInit {
   books: ReadingListBook[];
 
-  searchForm = this.fb.group({
-    term: ''
-  });
+  searchForm: FormGroup; 
 
   constructor(
     private readonly store: Store,
@@ -32,6 +31,11 @@ export class BookSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.searchForm = this.fb.group({
+      term: ''
+    });
+
     this.store.select(getAllBooks).subscribe(books => {
       this.books = books;
     });
