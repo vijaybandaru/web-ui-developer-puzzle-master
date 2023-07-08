@@ -19,7 +19,8 @@
               class="finishedBtn" 
               (click)="updateStatus(b)" 
               [disabled]="b?.finished"
-              [style.background-color]="b?.finished ? 'green' : 'primary'">
+              [style.background-color]="b?.finished ? 'green' : 'primary'"
+              id="finishedbtn-{{b.id}}">
         {{b?.finished ? 'Finished' : 'Finish'}}
       </button>
     </div>
