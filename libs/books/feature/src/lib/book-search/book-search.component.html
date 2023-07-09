@@ -37,7 +37,8 @@
               (click)="addBookToReadingList(b)"
               [disabled]="b.isAdded"
               aria-label="Want to Read"
-              data-testing="want-to-read">
+              data-testing="want-to-read"
+              id="btn-{{b.id}}">
               Want to Read
             </button>
           </div>

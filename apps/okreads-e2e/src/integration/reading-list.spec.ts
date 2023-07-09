@@ -12,12 +12,13 @@ describe('When: I use the reading list feature', () => {
     );
   });
 
-  it('Then: Undo action on my reading list', () => {
-    // cy.get('input[type="search"]').type('javascript');
-    // cy.get('form').submit();
-    // cy.get('[data-testing="want-to-read"]').click();
-
-   
+  it('Then: Undo add action on my search list', () => {
+    cy.get('input[type="search"]').type('javascript');
+    cy.get('form').submit({ multiple: true });
+    cy.get("#btn-nBuA0hmspdMC").click({ multiple: true });
+    cy.get("#btn-nBuA0hmspdMC").should('be.disabled');
+    cy.get('button:contains("Undo")').click();
+    cy.get("#btn-nBuA0hmspdMC").should('not.be.disabled');
   });
 
 
