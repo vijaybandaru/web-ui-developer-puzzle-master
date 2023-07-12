@@ -27,7 +27,7 @@ export const loadReadingListError = createAction(
 
 export const addToReadingList = createAction(
   ReadingListActionTypes.ADD_TO_LIST,
-  props<{ book: Book }>()
+  props<{ book: Book, hideSnackbar: boolean }>()
 );
 
 export const failedAddToReadingList = createAction(
@@ -42,7 +42,7 @@ export const confirmedAddToReadingList = createAction(
 
 export const removeFromReadingList = createAction(
   ReadingListActionTypes.REMOVE_FROM_LIST,
-  props<{ item: ReadingListItem }>()
+  props<{ item: ReadingListItem, hideSnackbar: boolean }>()
 );
 
 export const failedRemoveFromReadingList = createAction(

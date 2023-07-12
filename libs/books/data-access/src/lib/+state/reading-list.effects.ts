@@ -5,6 +5,8 @@ import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, map } from 'rxjs/operators';
 import { ReadingListItem } from '@tmo/shared/models';
 import * as ReadingListActions from './reading-list.actions';
+import { Store } from '@ngrx/store';
+import { SnackbarService } from '../services/snackbar-service';
 
 @Injectable()
 export class ReadingListEffects implements OnInitEffects {
@@ -27,9 +29,14 @@ export class ReadingListEffects implements OnInitEffects {
   addBook$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ReadingListActions.addToReadingList),
-      concatMap(({ book }) =>
+      concatMap(({ book, hideSnackbar }) =>
         this.http.post('/api/reading-list', book).pipe(
-          map(() => ReadingListActions.confirmedAddToReadingList({ book })),
+          map(() => {
+            if(!hideSnackbar){
+              this.snackBar.openSnackBar('Added', book);
+            }
+            return ReadingListActions.confirmedAddToReadingList({ book });
+          }),
           catchError(() =>
             of(ReadingListActions.failedAddToReadingList({ book }))
           )
@@ -41,11 +48,14 @@ export class ReadingListEffects implements OnInitEffects {
   removeBook$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ReadingListActions.removeFromReadingList),
-      concatMap(({ item }) =>
+      concatMap(({ item, hideSnackbar }) =>
         this.http.delete(`/api/reading-list/${item.bookId}`).pipe(
-          map(() =>
-            ReadingListActions.confirmedRemoveFromReadingList({ item })
-          ),
+          map(() => {
+            if(!hideSnackbar){
+              this.snackBar.openSnackBar('Removed', item);
+            }
+            return ReadingListActions.confirmedRemoveFromReadingList({ item });
+          }),
           catchError(() =>
             of(ReadingListActions.failedRemoveFromReadingList({ item }))
           )
@@ -58,5 +68,8 @@ export class ReadingListEffects implements OnInitEffects {
     return ReadingListActions.init();
   }
 
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  constructor(private actions$: Actions, 
+              private http: HttpClient, 
+              private snackBar: SnackbarService,
+              private readonly store: Store) {}
 }
