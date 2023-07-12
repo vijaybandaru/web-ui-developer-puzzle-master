@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, map } from 'rxjs/operators';
-import { Book, ReadingListItem } from '@tmo/shared/models';
+import { ReadingListItem } from '@tmo/shared/models';
 import * as ReadingListActions from './reading-list.actions';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
+import { SnackbarService } from '../services/snackbar-service';
 
 @Injectable()
 export class ReadingListEffects implements OnInitEffects {
@@ -33,11 +33,7 @@ export class ReadingListEffects implements OnInitEffects {
         this.http.post('/api/reading-list', book).pipe(
           map(() => {
             if(!hideSnackbar){
-              const snackBarRef = this.snackBar.open('Added', 'Undo', {duration: 3000});
-              snackBarRef.onAction().subscribe(() => {
-                const item: ReadingListItem = {...book, bookId: book.id};
-                this.store.dispatch(ReadingListActions.removeFromReadingList({ item, hideSnackbar: true }));
-              })
+              this.snackBar.openSnackBar('Added', book);
             }
             return ReadingListActions.confirmedAddToReadingList({ book });
           }),
@@ -56,11 +52,7 @@ export class ReadingListEffects implements OnInitEffects {
         this.http.delete(`/api/reading-list/${item.bookId}`).pipe(
           map(() => {
             if(!hideSnackbar){
-              const snackBarRef = this.snackBar.open('Removed', 'Undo', {duration: 3000});
-              snackBarRef.onAction().subscribe(() => {
-                const book: Book = {...item, id: item.bookId};
-                this.store.dispatch(ReadingListActions.addToReadingList({ book, hideSnackbar: true }));
-              })
+              this.snackBar.openSnackBar('Removed', item);
             }
             return ReadingListActions.confirmedRemoveFromReadingList({ item });
           }),
@@ -78,6 +70,6 @@ export class ReadingListEffects implements OnInitEffects {
 
   constructor(private actions$: Actions, 
               private http: HttpClient, 
-              private snackBar: MatSnackBar,
+              private snackBar: SnackbarService,
               private readonly store: Store) {}
 }

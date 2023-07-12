@@ -15,7 +15,8 @@
         color="warn"
         [attr.aria-label]="'Remove ' + b.title + ' from reading list'"
         (click)="removeFromReadingList(b)"
-        id="removebtn-{{b.id}}">
+        id="removebtn-{{b.id}}"
+        data-testing="btnremove">
         <mat-icon>remove_circle</mat-icon>
       </button>
     </div>
