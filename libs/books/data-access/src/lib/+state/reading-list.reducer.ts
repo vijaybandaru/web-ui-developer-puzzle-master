@@ -53,9 +53,15 @@ const readingListReducer = createReducer(
   on(ReadingListActions.removeFromReadingList, (state, action) =>
     readingListAdapter.removeOne(action.item.bookId, state)
   ),
-  on(ReadingListActions.updateBookStatus, (state, action) =>
-  readingListAdapter.updateOne({ id: action.item.bookId, changes: {finished: true, finishedDate: new Date().toISOString() } }, state)
-),
+  on(ReadingListActions.ConfirmedupdateBookStatus, (state, action) => {
+    return readingListAdapter.updateOne({id: action.item.bookId, changes: {finished: true, finishedDate: new Date().toISOString()}}, state );
+  }),
+  on(ReadingListActions.failedupdateBookStatus, (state, action) => {
+    return {
+      ...state,
+      error: action.error
+    };
+  }),
 );
 
 export function reducer(state: State | undefined, action: Action) {

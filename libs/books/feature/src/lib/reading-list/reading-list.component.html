@@ -20,7 +20,7 @@
               (click)="updateStatus(b)" 
               [disabled]="b?.finished"
               [style.background-color]="b?.finished ? 'green' : 'primary'"
-              id="finishedbtn-{{b.id}}">
+              data-testing="btnFinish">
         {{b?.finished ? 'Finished' : 'Finish'}}
       </button>
     </div>

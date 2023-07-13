@@ -65,7 +65,7 @@ export const updateBookStatus = createAction(
 
 export const failedupdateBookStatus = createAction(
   ReadingListActionTypes.UPDATE_BOOK_STATUS_FAIL,
-  props<{ item: ReadingListItem }>()
+  props<{ error: string }>()
 );
 
 export const ConfirmedupdateBookStatus = createAction(

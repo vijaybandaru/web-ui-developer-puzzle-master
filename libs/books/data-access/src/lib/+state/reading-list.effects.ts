@@ -47,7 +47,7 @@ export class ReadingListEffects implements OnInitEffects {
           map(() =>
             ReadingListActions.confirmedRemoveFromReadingList({ item })
           ),
-          catchError(() =>
+          catchError((err) =>
             of(ReadingListActions.failedRemoveFromReadingList({ item }))
           )
         )
@@ -55,7 +55,7 @@ export class ReadingListEffects implements OnInitEffects {
     )
   );
 
-  setBookStatus$ = createEffect(() =>
+  updateBookStatus$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ReadingListActions.updateBookStatus),
       concatMap(({ item }) =>
@@ -63,8 +63,8 @@ export class ReadingListEffects implements OnInitEffects {
           map(() => {
             return ReadingListActions.ConfirmedupdateBookStatus({ item });
           }),
-          catchError(() =>
-            of(ReadingListActions.failedupdateBookStatus({ item }))
+          catchError((error) =>
+            of(ReadingListActions.failedupdateBookStatus({ error }))
           )
         )
       )
