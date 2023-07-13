@@ -36,8 +36,9 @@
               color="primary"
               (click)="addBookToReadingList(b)"
               [disabled]="b.isAdded"
-              aria-label="Want to Read">
-              Want to Read
+              aria-label="Want to Read"
+              data-testing="btnWanttoRead">
+              {{b?.finished ? 'Finished' : 'Want to Read'}}
             </button>
           </div>
         </div>

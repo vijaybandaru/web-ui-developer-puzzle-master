@@ -11,6 +11,9 @@ export enum ReadingListActionTypes {
   REMOVE_FROM_LIST = "[Books Search Results] Remove from list",
   REMOVE_FROM_LIST_SUCCESS = "[Reading List API] Confirmed remove from list",
   REMOVE_FROM_LIST_FAIL = "[Reading List API] Failed remove from list",
+  UPDATE_BOOK_STATUS = "[Reading List API] Mark as complete",
+  UPDATE_BOOK_STATUS_SUCCESS = "[Reading List API] Confirmed to Update Status",
+  UPDATE_BOOK_STATUS_FAIL = "[Reading List API] Failed add to Update Status",
 }
 
 export const init = createAction('[Reading List] Initialize');
@@ -52,5 +55,20 @@ export const failedRemoveFromReadingList = createAction(
 
 export const confirmedRemoveFromReadingList = createAction(
   ReadingListActionTypes.REMOVE_FROM_LIST_SUCCESS,
+  props<{ item: ReadingListItem }>()
+);
+
+export const updateBookStatus = createAction(
+  ReadingListActionTypes.UPDATE_BOOK_STATUS,
+  props<{ item: ReadingListItem }>()
+);
+
+export const failedupdateBookStatus = createAction(
+  ReadingListActionTypes.UPDATE_BOOK_STATUS_FAIL,
+  props<{ error: string }>()
+);
+
+export const ConfirmedupdateBookStatus = createAction(
+  ReadingListActionTypes.UPDATE_BOOK_STATUS_SUCCESS,
   props<{ item: ReadingListItem }>()
 );
